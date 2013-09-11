@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+<div class="row">
+<div class="col-md-8" id="main">{% block main %}{% endblock %}</div>
+<div class="col-md-4" id="sidebar">{% block sidebar %}{% endblock %}</div>
+</div>
+</div>
+{% endblock %}
+
+{% block body_scripts %}
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/topojson.v0.min.js"></script>
+{{ super() }}
+{% endblock %}

@@ -1,0 +1,41 @@
+#main svg {
+background: #fff;
+}
+
+.subunit{fill:#fff;}
+.subunit.Nordrhein-Westfalen{ fill: #aba; }
+.subunit.Baden-Württemberg{ fill: #bab; }
+.subunit.Hessen{ fill: #bcb; }
+.subunit.Niedersachsen{ fill: #cbc; }
+.subunit.Thüringen{ fill: #cdc; }
+.subunit.Hamburg{ fill: #dcd; }
+.subunit.Schleswig-Holstein{ fill: #ded; }
+.subunit.Rheinland-Pfalz{ fill: #ede; }
+.subunit.Saarland{ fill: #efe; }
+.subunit.Sachsen-Anhalt{ fill: #fef; }
+.subunit.Brandenburg{ fill: #aaa; }
+.subunit.Mecklenburg-Vorpommern{ fill: #bbb; }
+.subunit.Bayern { fill: #ccc; }
+.subunit.Sachsen { fill: #ddd; }
+.subunit.Bremen { fill: #eee; }
+.subunit.Berlin { fill: #fff; }
+
+.subunit-boundary {
+  fill: none;
+  stroke-width:1px;
+  stroke: #777;
+  stroke-dasharray: 2,2;
+  stroke-linejoin: round;
+}
+
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 20px;
+  pointer-events: none;
+}
+.subunit-label {
+  fill: #666;
+  fill-opacity: .7;
+  font-size: 1em;
+  text-anchor: middle;
+}
