@@ -110,7 +110,7 @@ function renderVoteDist(vote_dist) {
     clearVoteDist();
 
     var width = containerWidth('#vote-dist-total'),
-        height = width / 1.3,
+        height = width / 1.6,
         barPadding = 7,
         margin = {top: 5, right: 10, bottom: 20, left: 10},
         margin_v = margin.top + margin.bottom;
@@ -128,7 +128,8 @@ function renderVoteDist(vote_dist) {
     var perc = d3.format('.1%');
 
     var vis = d3.select('#vote-dist-total')
-        .append('svg')
+        .insert('svg')
+        .attr('id', 'vote-dist-bar')
         .attr('class', 'box')
         .attr('width', width)
         .attr('height', height + margin_v);
@@ -183,7 +184,7 @@ function renderVoteDist(vote_dist) {
 
 function renderMap(de) {
     var width = containerWidth('#main'),
-        height = width * 1.1;
+        height = width * 1.2;
 
     var path = d3.geo.path();
 
@@ -195,7 +196,7 @@ function renderMap(de) {
 
     var projection = d3.geo.mercator()
         .center([10.5, 51.35])
-        .scale(width * height / 180)
+        .scale(width * height / 150)
         // move a little to the left
         .translate([(width / 2) - 50, height / 2]);
 
