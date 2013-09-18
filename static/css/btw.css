@@ -1,67 +1,40 @@
-#main svg {
-background: #fff;
+body {
+background: #ddd;
 }
 
-/* Party colors from https://github.com/pudo/btw13.js/blob/gh-pages/css/bigboard.css */
-.fg-cdu, .fg-csu {
-  color: #0c065d;
+/* Party colors from charts https://de.wikipedia.org/wiki/Bundestagswahl */
+.union, .cdu, .csu {
+  fill: #000;
 }
 
-.fg-cdu.light, .fg-csu.light {
-  color: #fff;
+.spd {
+  fill: #f00;
 }
 
-.fg-spd {
-  color: #e30820;
+.fdp {
+  fill: #ff0;
 }
 
-.fg-fdp {
-  color: #ffc907;
+.linke {
+  fill: #a0a;
 }
 
-.fg-dielinke {
-  color: #b939c1;
+.grüne {
+  fill: #008b00;
 }
 
-.fg-grune {
-  color: #349b09;
+.piraten {
+  fill: #ff820a;
 }
 
-.fg-piraten {
-  color: #f60;
+.npd, .rep {
+  fill: #8b4726;
 }
-
-.fg-afd {
-  color: #97d2fb;
-}
-
-.fg-npd, .fg-rep {
-  color: #703800;
-}
-
-.subunit{fill:#fff;}
-.subunit.Nordrhein-Westfalen{ fill: #aba; }
-.subunit.Baden-Württemberg{ fill: #bab; }
-.subunit.Hessen{ fill: #bcb; }
-.subunit.Niedersachsen{ fill: #cbc; }
-.subunit.Thüringen{ fill: #cdc; }
-.subunit.Hamburg{ fill: #dcd; }
-.subunit.Schleswig-Holstein{ fill: #ded; }
-.subunit.Rheinland-Pfalz{ fill: #ede; }
-.subunit.Saarland{ fill: #efe; }
-.subunit.Sachsen-Anhalt{ fill: #fef; }
-.subunit.Brandenburg{ fill: #aaa; }
-.subunit.Mecklenburg-Vorpommern{ fill: #bbb; }
-.subunit.Bayern { fill: #ccc; }
-.subunit.Sachsen { fill: #ddd; }
-.subunit.Bremen { fill: #eee; }
-.subunit.Berlin { fill: #fff; }
 
 .subunit-boundary {
   fill: none;
-  stroke-width:1px;
+  stroke-width:.7px;
   stroke: #777;
-  stroke-dasharray: 2,2;
   stroke-linejoin: round;
 }
 
@@ -71,8 +44,20 @@ text {
   pointer-events: none;
 }
 .subunit-label {
-  fill: #666;
-  fill-opacity: .7;
+  fill: #fff;
+  fill-opacity: .5;
   font-size: 1em;
   text-anchor: middle;
+}
+
+.no-background {
+  fill: transparent;
+}
+
+div.bar {
+display: inline-block;
+width: 20px;
+height: 75px;
+margin-right: 2px;
+background-color: teal;
 }
