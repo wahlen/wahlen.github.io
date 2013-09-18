@@ -1,28 +1,33 @@
-var width = 675,
-    height = 900;
-
 var map_states_votes = {};
-var state_data = null;
-
-var path = d3.geo.path();
-
-var svg = d3.select('#main').append('svg')
-    .attr('width', width)
-    .attr('height', height);
 
 queue()
     .defer(d3.json, '/data/DEU.topo.json')
     .defer(d3.csv, '/data/bundestagswahl_2009.csv')
     .await(init);
 
+function init(error, de, btw) {
+    // FIXME handle errors
+
+    // create a mapping from state names to vote data for faster access
+    btw.map(function(item, index){
+        map_states_votes[item['Bundesland']] = item;
+    });
+
+    var vote_dist = getSortedVoteDist(btw, true);
+    renderVoteDist(vote_dist);
+    renderMap(de);
+}
+
+
 function containerWidth(selector) {
   return parseInt(d3.select(selector).style('width'))
-};
+}
 
 
 function click(a){
     console.log(a.properties.name);
 }
+
 
 function getSortedPartyVotesByState(state_data, vote_num) {
     // Zweitstimme is default
@@ -31,7 +36,7 @@ function getSortedPartyVotesByState(state_data, vote_num) {
 
     party_votes = [];
     for (key in state_data) {
-        if (-1 === key.indexOf(vote_key) || -1 !== key.indexOf('Gültige'))
+        if (-1 === key.indexOf(vote_key))
             continue;
         party_votes.push({
             'party': key.split(' ')[0],
@@ -45,11 +50,12 @@ function getSortedPartyVotesByState(state_data, vote_num) {
 
 function getWinningPartyByState(state_name, vote_num) {
     var party_votes = getSortedPartyVotesByState(map_states_votes[state_name], vote_num);
-    return party_votes[0].party;
+    // 1st vote with index 0 is total valid votes, i. e. Gültige
+    return party_votes[1].party;
 }
 
 
-function getSortedVoteDist(btw) {
+function getSortedVoteDist(btw, union) {
     var vote_dist = {};
     btw.map(function(state){
         party_votes = getSortedPartyVotesByState(state, 2);
@@ -61,10 +67,13 @@ function getSortedVoteDist(btw) {
             vote_dist[vote.party] += vote.votes;
         });
     });
-    // add CDU and CSU as Union and remove them
-    vote_dist['Union'] = vote_dist['CDU'] + vote_dist['CSU'];
-    delete vote_dist['CDU'];
-    delete vote_dist['CSU'];
+
+    // combine CDU and CSU to Union and remove them
+    if (union) {
+        vote_dist['Union'] = vote_dist['CDU'] + vote_dist['CSU'];
+        delete vote_dist['CDU'];
+        delete vote_dist['CSU'];
+    }
 
     var entries = d3.entries(vote_dist)
     return entries.sort(function (a, b){ return b.value - a.value });
@@ -73,11 +82,12 @@ function getSortedVoteDist(btw) {
 
 function renderVoteDist(vote_dist) {
     var width = containerWidth('#vote-dist-total'),
-        height = width / 1.2,
+        height = width / 1.3,
         barPadding = 7,
         margin = {top: 5, right: 10, bottom: 20, left: 10},
         margin_v = margin.top + margin.bottom;
 
+    var total_valid = vote_dist.shift();
     var len_dist = vote_dist.length;
     var vote_max = vote_dist[0].value;
 
@@ -87,13 +97,15 @@ function renderVoteDist(vote_dist) {
         .domain([0, vote_max])
         .range([0, height - margin_v]);
 
-    var svg_dist = d3.select('#vote-dist-total')
+    var perc = d3.format('.1%');
+
+    var vis = d3.select('#vote-dist-total')
         .append('svg')
         .attr('class', 'box')
         .attr('width', width)
-        .attr('height', height);
+        .attr('height', height + margin_v);
 
-    svg_dist.selectAll('rect')
+    vis.selectAll('rect')
         .data(vote_dist)
         .enter()
         .append('rect')
@@ -107,28 +119,57 @@ function renderVoteDist(vote_dist) {
             return height - voteScale(d.value);
         })
         .attr('width', width / len_dist - barPadding)
-        .attr('height', function(d) { console.log(d.value, voteScale(d.value)); return voteScale(d.value) });
+        .attr('height', function(d) { return voteScale(d.value) });
 
+    vis.selectAll('text.bar-x-label')
+        .data(vote_dist)
+        .enter()
+        .append('text')
+        .attr('class', 'bar-x-label')
+        .text(function(d){ return d.key })
+        .attr('x', function(d, i) {
+            return i * (width / len_dist);
+        })
+        .attr('y', function(d) {
+            return height + 12;
+        })
+        .attr('fill', 'black')
+        .attr('text-anchor', 'start');
+
+    vis.selectAll('text.value-label')
+        .data(vote_dist)
+        .enter()
+        .append('text')
+        .attr('class', 'value-label')
+        .text(function(d) {
+            return perc(d.value / total_valid.value)
+        })
+        .attr('x', function(d, i) {
+            return i * (width / len_dist);
+        })
+        .attr('y', margin_v - 4)
+        .attr('fill', 'black')
+        .attr('text-anchor', 'start');
 }
 
 
-function init(error, de, btw) {
-    // FIXME handle errors
+function renderMap(de) {
+    var width = containerWidth('#main'),
+        height = width * 1.1;
 
-    // create a mapping from state names to vote data for faster access
-    btw.map(function(item, index){
-        map_states_votes[item['Bundesland']] = item;
-    });
+    var path = d3.geo.path();
 
-    var vote_dist = getSortedVoteDist(btw);
-    renderVoteDist(vote_dist);
+    var svg = d3.select('#main').append('svg')
+        .attr('width', width)
+        .attr('height', height);
 
     var subunits = topojson.object(de, de.objects.subunits);
 
     var projection = d3.geo.mercator()
         .center([10.5, 51.35])
-        .scale(3800)
-        .translate([width / 2, height / 2]);
+        .scale(width * height / 180)
+        // move a little to the left
+        .translate([(width / 2) - 50, height / 2]);
 
     var path = d3.geo.path()
         .projection(projection)
