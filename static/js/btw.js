@@ -1,4 +1,5 @@
-// based on https://milkator.wordpress.com/2013/02/25/making-a-map-of-germany-with-topojson/
+// https://milkator.wordpress.com/2013/02/25/making-a-map-of-germany-with-topojson/
+// https://github.com/pudo/btw13.js
 
 var width = 675,
     height = 900;
@@ -9,9 +10,13 @@ var svg = d3.select('#main').append('svg')
     .attr('width', width)
     .attr('height', height);
 
-d3.json('/data/DEU.topo.json', showData);
+queue()
+    .defer(d3.json, '/data/DEU.topo.json')
+    .defer(d3.csv, '/data/bundestagswahl_2009.csv')
+    .await(showData);
 
-function showData(error, de) {
+function showData(error, de, btw) {
+    console.log(de, btw)
     var subunits = topojson.object(de, de.objects.subunits);
 
     var projection = d3.geo.mercator()

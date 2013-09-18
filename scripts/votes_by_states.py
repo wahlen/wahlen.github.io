@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import pandas as pd
+
 df = pd.read_csv(
     '../data/kerg.csv', skiprows=5, header=None, encoding='iso-8859-1', sep=';')
 
@@ -39,4 +40,5 @@ df_votes = df_states[vote_cols]
 df_votes.columns = df_votes.columns.map(lambda x: col_map[x])
 
 # save as CSV without the 1st index col
-df_votes.to_csv('../data/bundestagswahl_2009.csv', index=False, encoding='utf-8')
+df_votes.to_csv(
+    '../data/bundestagswahl_2009.csv', index=False, encoding='utf-8')

@@ -2,6 +2,43 @@
 background: #fff;
 }
 
+/* Party colors from https://github.com/pudo/btw13.js/blob/gh-pages/css/bigboard.css */
+.fg-cdu, .fg-csu {
+  color: #0c065d;
+}
+
+.fg-cdu.light, .fg-csu.light {
+  color: #fff;
+}
+
+.fg-spd {
+  color: #e30820;
+}
+
+.fg-fdp {
+  color: #ffc907;
+}
+
+.fg-dielinke {
+  color: #b939c1;
+}
+
+.fg-grune {
+  color: #349b09;
+}
+
+.fg-piraten {
+  color: #f60;
+}
+
+.fg-afd {
+  color: #97d2fb;
+}
+
+.fg-npd, .fg-rep {
+  color: #703800;
+}
+
 .subunit{fill:#fff;}
 .subunit.Nordrhein-Westfalen{ fill: #aba; }
 .subunit.Baden-Württemberg{ fill: #bab; }
