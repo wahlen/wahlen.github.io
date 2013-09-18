@@ -36,6 +36,10 @@ text {
   fill: #8b4726;
 }
 
+.sonstige {
+  fill: #aaa;
+}
+
 /* map */
 .subunit {
 cursor:pointer;

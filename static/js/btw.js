@@ -109,6 +109,10 @@ function getSortedVoteDist(btw, union) {
 function renderVoteDist(vote_dist) {
     clearVoteDist();
 
+    // if only total left do nothing more
+    if (1 == vote_dist.length)
+        return;
+
     var width = containerWidth('#vote-dist-total'),
         height = width / 1.6,
         barPadding = 7,
@@ -116,6 +120,14 @@ function renderVoteDist(vote_dist) {
         margin_v = margin.top + margin.bottom;
 
     var total_valid = vote_dist.shift();
+    var total_displayed_parties = d3.sum(vote_dist, function(d) {
+        return d.value;
+    });
+    vote_dist.push({
+        key: 'Sonstige',
+        value: total_valid.value - total_displayed_parties
+    });
+
     var len_dist = vote_dist.length;
     var vote_max = vote_dist[0].value;
 
