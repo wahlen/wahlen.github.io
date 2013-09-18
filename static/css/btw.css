@@ -54,6 +54,10 @@ text {
   fill: transparent;
 }
 
+.box{
+
+}
+
 div.bar {
 display: inline-block;
 width: 20px;

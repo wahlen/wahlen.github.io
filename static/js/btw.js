@@ -74,42 +74,26 @@ function getSortedVoteDist(btw) {
 function renderVoteDist(vote_dist) {
     var width = containerWidth('#vote-dist-total'),
         height = width / 1.2,
-        barPadding = 7;
-
-    var margin = {top: 10, right: 10, bottom: 10, left: 10};
+        barPadding = 7,
+        margin = {top: 5, right: 10, bottom: 20, left: 10},
+        margin_v = margin.top + margin.bottom;
 
     var len_dist = vote_dist.length;
     var vote_max = vote_dist[0].value;
-    var vote_min = vote_dist[len_dist - 1].value
 
     var parties = vote_dist.map(function(d){ return d.key });
 
-    var x = d3.scale.ordinal()
-        .rangeRoundBands([0, width], .1, 0);
-
-    var xAxis = d3.svg.axis()
-        .scale(x)
-        .orient('bottom');
-
-    var xScale = d3.scale.ordinal()
-        .domain(parties)
-        .range([0, len_dist - 1]);
-
     var voteScale = d3.scale.linear()
         .domain([0, vote_max])
-        .range([0, height]);
+        .range([0, height - margin_v]);
 
     var svg_dist = d3.select('#vote-dist-total')
         .append('svg')
+        .attr('class', 'box')
         .attr('width', width)
         .attr('height', height);
 
-    svg_g = svg_dist.append('g')
-        .attr('class', 'no-background')
-        .attr('width', width)
-        .attr('height', height);
-
-    svg_g.selectAll('rect')
+    svg_dist.selectAll('rect')
         .data(vote_dist)
         .enter()
         .append('rect')
@@ -125,12 +109,6 @@ function renderVoteDist(vote_dist) {
         .attr('width', width / len_dist - barPadding)
         .attr('height', function(d) { console.log(d.value, voteScale(d.value)); return voteScale(d.value) });
 
-/*
-    svg_dist.append('g')
-        .attr('class', 'x axis')
-        .attr('transform', 'translate(0,325)')
-        .call(xAxis);
-*/
 }
 
 
