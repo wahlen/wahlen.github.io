@@ -1,6 +1,11 @@
 body {
 background: #ddd;
 }
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  pointer-events: none;
+}
 
 /* Party colors from charts https://de.wikipedia.org/wiki/Bundestagswahl */
 .union, .cdu, .csu {
@@ -31,17 +36,15 @@ background: #ddd;
   fill: #8b4726;
 }
 
+/* map */
+.subunit {
+cursor:pointer;
+}
 .subunit-boundary {
   fill: none;
   stroke-width:.9px;
   stroke: #777;
   stroke-linejoin: round;
-}
-
-text {
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-  font-size: 1em;
-  pointer-events: none;
 }
 
 .subunit-label {

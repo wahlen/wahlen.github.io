@@ -1,4 +1,6 @@
-var map_states_votes = {};
+var btw_results = null,
+    map_states_votes = {},
+    inactive_regions = {};
 
 queue()
     .defer(d3.json, '/data/DEU.topo.json')
@@ -7,6 +9,8 @@ queue()
 
 function init(error, de, btw) {
     // FIXME handle errors
+
+    btw_results = btw;
 
     // create a mapping from state names to vote data for faster access
     btw.map(function(item, index){
@@ -24,8 +28,30 @@ function containerWidth(selector) {
 }
 
 
-function click(a){
-    console.log(a.properties.name);
+function clearVoteDist() {
+    d3.selectAll('#vote-dist-total svg').remove();
+}
+
+
+function toggleRegion(d, i){
+    //console.log(d.properties.attr('fill', '#fff'))
+
+    var name = d.properties.name;
+    if (inactive_regions.hasOwnProperty(name)) {
+        d3.select(this).style('fill', null);
+        delete inactive_regions[name];
+    }
+    else {
+        d3.select(this).style('fill', '#fff');
+        inactive_regions[name] = true;
+    }
+    var btw = btw_results.filter(function(item, index){
+        return inactive_regions.hasOwnProperty(item['Bundesland']) ? false : true;
+    });
+    if (vote_dist = getSortedVoteDist(btw, true))
+        renderVoteDist(vote_dist);
+    else
+        clearVoteDist();
 }
 
 
@@ -81,6 +107,8 @@ function getSortedVoteDist(btw, union) {
 
 
 function renderVoteDist(vote_dist) {
+    clearVoteDist();
+
     var width = containerWidth('#vote-dist-total'),
         height = width / 1.3,
         barPadding = 7,
@@ -188,7 +216,8 @@ function renderMap(de) {
             return 'subunit ' + party.toLowerCase();
         })
         .attr('d', path)
-        .on('click', click);
+        .on('click', toggleRegion)
+        .append('title').text('Klicken um Region ein oder auszublenden.')
 
     svg.append('path')
         .datum(topojson.mesh(de, de.objects.subunits, function(a,b) {
