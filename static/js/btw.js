@@ -17,7 +17,7 @@ function init(error, de, btw) {
         map_states_votes[item['Bundesland']] = item;
     });
 
-    var vote_dist = getSortedVoteDist(btw, true);
+    var vote_dist = getSortedVoteDist(btw);
     renderVoteDist(vote_dist);
     renderMap(de);
 }
@@ -48,7 +48,7 @@ function toggleRegion(d, i){
     var btw = btw_results.filter(function(item, index){
         return inactive_regions.hasOwnProperty(item['Bundesland']) ? false : true;
     });
-    if (vote_dist = getSortedVoteDist(btw, true))
+    if (vote_dist = getSortedVoteDist(btw))
         renderVoteDist(vote_dist);
     else
         clearVoteDist();
@@ -81,7 +81,7 @@ function getWinningPartyByState(state_name, vote_num) {
 }
 
 
-function getSortedVoteDist(btw, union) {
+function getSortedVoteDist(btw) {
     var vote_dist = {};
     btw.map(function(state){
         party_votes = getSortedPartyVotesByState(state, 2);
@@ -93,13 +93,6 @@ function getSortedVoteDist(btw, union) {
             vote_dist[vote.party] += vote.votes;
         });
     });
-
-    // combine CDU and CSU to Union and remove them
-    if (union) {
-        vote_dist['Union'] = vote_dist['CDU'] + vote_dist['CSU'];
-        delete vote_dist['CDU'];
-        delete vote_dist['CSU'];
-    }
 
     var entries = d3.entries(vote_dist)
     return entries.sort(function (a, b){ return b.value - a.value });
@@ -224,7 +217,7 @@ function renderMap(de) {
         .data(topojson.feature(de, de.objects.subunits).features)
       .enter().append('path')
         .attr('class', function(d) {
-            // determin winning party
+            // determine winning party
             party = getWinningPartyByState(d.properties.name);
             return 'subunit ' + party.toLowerCase();
         })
