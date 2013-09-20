@@ -1,7 +1,11 @@
 {% extends 'map.html' %}
 
 {% block tooltip %}
-<div class="tooltip" id="tooltip"><div id="country-votes"></div></div>
+<div class="tooltip" id="tooltip">
+    <h3 id="tooltip-title"></h3>
+    <div id="country-votes"></div>
+    <p>Per Mausklick das Bundesland ein- oder ausblenden.</p>
+</div>
 {% endblock %}
 
 {% block sidebar %}

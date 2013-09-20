@@ -59,14 +59,16 @@ function getSortedPartyVotesByState(state_data, vote_num) {
 
     party_votes = [];
     for (key in state_data) {
+        if (!state_data[key]) continue;
+
         if (-1 === key.indexOf(vote_key))
             continue;
         party_votes.push({
-            'party': key.split(' ')[0],
-            'votes': parseInt(state_data[key])
+            'key': key.split(' ')[0],
+            'value': parseInt(state_data[key])
         });
     }
-    party_votes.sort(function(a, b){return b.votes - a.votes});
+    party_votes.sort(function(a, b){return b.value - a.value});
     return party_votes;
 }
 
@@ -74,7 +76,7 @@ function getSortedPartyVotesByState(state_data, vote_num) {
 function getWinningPartyByState(state_name, vote_num) {
     var party_votes = getSortedPartyVotesByState(map_states_votes[state_name], vote_num);
     // 1st vote with index 0 is total valid votes, i. e. Gültige
-    return party_votes[1].party;
+    return party_votes[1].key;
 }
 
 
@@ -83,11 +85,11 @@ function getSortedVoteDist(btw) {
     btw.map(function(state){
         party_votes = getSortedPartyVotesByState(state, 2);
         party_votes.map(function(vote){
-            if (!vote_dist.hasOwnProperty(vote.party)) {
-                vote_dist[vote.party] = 0;
+            if (!vote_dist.hasOwnProperty(vote.key)) {
+                vote_dist[vote.key] = 0;
             }
-            vote.votes = isNaN(vote.votes) ? 0 : vote.votes;
-            vote_dist[vote.party] += vote.votes;
+            vote.value = isNaN(vote.value) ? 0 : vote.value;
+            vote_dist[vote.key] += vote.value;
         });
     });
 
@@ -220,8 +222,7 @@ function renderMap(de) {
         .attr('d', path)
         .on('click', toggleRegion)
         .on('mouseover', tooltipShow)
-        .on('mouseout', tooltipHide)
-        .append('title').text('Klicken um Region ein oder auszublenden.')
+        .on('mouseout', tooltipHide);
 
     svg.append('path')
         .datum(topojson.mesh(de, de.objects.subunits, function(a,b) {
@@ -261,9 +262,10 @@ function tooltipShow(d) {
         .duration(200)
         .style('opacity', 1);
     tooltip_div
-        .style('left', (e.pageX) + 'px')
-        .style('top', (e.pageY - 28) + 'px');
+        .style('left', e.pageX + 'px')
+        .style('top', e.pageY + 'px');
 
+    d3.select('#tooltip-title').text(d.properties.name);
     renderVoteDist('#country-votes', party_votes);
 }
 
