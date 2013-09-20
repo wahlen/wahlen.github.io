@@ -20,6 +20,8 @@
   </head>
 
   <body>
+    {% block tooltip %}{% endblock %}
+
     {% block body_styles %}
         {% for style in styles %}
             <link href="{{ style }}{{ version }}" rel="stylesheet">

@@ -1,6 +1,8 @@
 var btw_results = null,
     map_states_votes = {},
-    inactive_regions = {};
+    inactive_regions = {},
+    tooltip_div = d3.select('#tooltip'),
+    sel_vote_dist = '#vote-dist-total';
 
 queue()
     .defer(d3.json, '/data/DEU.topo.json')
@@ -18,18 +20,13 @@ function init(error, de, btw) {
     });
 
     var vote_dist = getSortedVoteDist(btw);
-    renderVoteDist(vote_dist);
+    renderVoteDist(sel_vote_dist, vote_dist);
     renderMap(de);
 }
 
 
 function containerWidth(selector) {
   return parseInt(d3.select(selector).style('width'))
-}
-
-
-function clearVoteDist() {
-    d3.selectAll('#vote-dist-total svg').remove();
 }
 
 
@@ -49,9 +46,9 @@ function toggleRegion(d, i){
         return inactive_regions.hasOwnProperty(item['Bundesland']) ? false : true;
     });
     if (vote_dist = getSortedVoteDist(btw))
-        renderVoteDist(vote_dist);
+        renderVoteDist(sel_vote_dist, vote_dist);
     else
-        clearVoteDist();
+        d3.selectAll(sel_vote_dist + ' svg').remove();
 }
 
 
@@ -99,14 +96,14 @@ function getSortedVoteDist(btw) {
 }
 
 
-function renderVoteDist(vote_dist) {
-    clearVoteDist();
+function renderVoteDist(selector, vote_dist) {
+    d3.selectAll(selector + ' svg').remove();
 
     // if only total left do nothing more
     if (1 == vote_dist.length)
         return;
 
-    var width = containerWidth('#vote-dist-total'),
+    var width = containerWidth(selector),
         height = width / 1.6,
         barPadding = 7,
         margin = {top: 5, right: 10, bottom: 20, left: 10},
@@ -132,9 +129,8 @@ function renderVoteDist(vote_dist) {
 
     var perc = d3.format('.1%');
 
-    var vis = d3.select('#vote-dist-total')
+    var vis = d3.select(selector)
         .insert('svg')
-        .attr('id', 'vote-dist-bar')
         .attr('class', 'box')
         .attr('width', width)
         .attr('height', height + margin_v);
@@ -223,6 +219,8 @@ function renderMap(de) {
         })
         .attr('d', path)
         .on('click', toggleRegion)
+        .on('mouseover', tooltipShow)
+        .on('mouseout', tooltipHide)
         .append('title').text('Klicken um Region ein oder auszublenden.')
 
     svg.append('path')
@@ -252,4 +250,26 @@ function renderMap(de) {
             return '.35em';
         })
         .text(function(d) { return d.properties.name; });
+}
+
+
+function tooltipShow(d) {
+    var e = d3.event;
+    var party_votes = getSortedPartyVotesByState(
+        map_states_votes[d.properties.name], 2);
+    tooltip_div.transition()
+        .duration(200)
+        .style('opacity', 1);
+    tooltip_div
+        .style('left', (e.pageX) + 'px')
+        .style('top', (e.pageY - 28) + 'px');
+
+    renderVoteDist('#country-votes', party_votes);
+}
+
+
+function tooltipHide(d) {
+    tooltip_div.transition()
+        .duration(500)
+        .style('opacity', 0);
 }
