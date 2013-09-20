@@ -14,10 +14,10 @@ col_map = {
     7: 'Wähler',                    # H
     15: 'Gültige Erststimmen',      # P
     17: 'Gültige Zweitstimmen',     # R
-    19: 'CDU Erststimmen',
-    21: 'CDU Zweitstimmen',
-    23: 'SPD Erststimmen',
-    25: 'SPD Zweitstimmen',
+    19: 'SPD Erststimmen',
+    21: 'SPD Zweitstimmen',
+    23: 'CDU Erststimmen',
+    25: 'CDU Zweitstimmen',
     27: 'FDP Erststimmen',
     29: 'FDP Zweitstimmen',
     31: 'LINKE Erststimmen',
@@ -26,10 +26,10 @@ col_map = {
     37: 'GRÜNE Zweitstimmen',
     39: 'CSU Erststimmen',
     41: 'CSU Zweitstimmen',
-    43: 'PIRATEN Erststimmen',
-    45: 'PIRATEN Zweitstimmen',
-    47: 'NPD Erststimmen',
-    49: 'NPD Zweitstimmen',
+    43: 'NPD Erststimmen',
+    45: 'NPD Zweitstimmen',
+    47: 'REP Erststimmen',
+    49: 'REP Zweitstimmen',
 }
 
 # vote cols

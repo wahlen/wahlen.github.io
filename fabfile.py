@@ -9,7 +9,7 @@ SHP_ZIP = '%s.zip' % SHP
 
 
 def dl():
-    local('curl -L -o %s/%s http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/%s' % (SHP_ZIP, DATA_DIR, SHP_ZIP))
+    local('curl -L -o %s/%s http://www.naturalearthdata.com/http//www.naturalearthdata.com/download/10m/cultural/%s' % (DATA_DIR, SHP_ZIP, SHP_ZIP))
 
 
 def extract():
@@ -25,7 +25,7 @@ def topojson():
     with lcd(DATA_DIR):
         #FIXME use "code_hasc": "DE.NW"?
         local('topojson --id-property su_a3 -p NAME=name -p name -o %s.topo.json subunits.json' % COUNTRY)
-        local('mv subunits.json %s.geo,json' % COUNTRY)
+        local('mv subunits.json %s.geo.json' % COUNTRY)
 
 
 def json():

@@ -204,7 +204,7 @@ function renderMap(de) {
         .attr('width', width)
         .attr('height', height);
 
-    var subunits = topojson.object(de, de.objects.subunits);
+    var subunits = topojson.feature(de, de.objects.subunits);
 
     var projection = d3.geo.mercator()
         .center([10.5, 51.35])
@@ -221,7 +221,7 @@ function renderMap(de) {
         .attr('d', path)
 
     svg.selectAll('.subunit')
-        .data(topojson.object(de, de.objects.subunits).geometries)
+        .data(topojson.feature(de, de.objects.subunits).features)
       .enter().append('path')
         .attr('class', function(d) {
             // determin winning party
@@ -243,7 +243,7 @@ function renderMap(de) {
         .attr('class', 'subunit-boundary');
 
     svg.selectAll('.subunit-label')
-        .data(topojson.object(de, de.objects.subunits).geometries)
+        .data(topojson.feature(de, de.objects.subunits).features)
       .enter().append('text')
         .attr('class', function(d) {
             return 'subunit-label ' + d.properties.name;
