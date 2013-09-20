@@ -28,8 +28,10 @@ col_map = {
     41: 'CSU Zweitstimmen',
     43: 'NPD Erststimmen',
     45: 'NPD Zweitstimmen',
-    47: 'REP Erststimmen',
-    49: 'REP Zweitstimmen',
+#    47: 'REP Erststimmen',
+#    49: 'REP Zweitstimmen',
+    115: 'PIRATEN Erststimmen',
+    117: 'PIRATEN Zweitstimmen',
 }
 
 # vote cols
