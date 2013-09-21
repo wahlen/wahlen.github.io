@@ -1,0 +1,81 @@
+body {
+background: #ddd;
+}
+text {
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 1em;
+  pointer-events: none;
+}
+
+/* Party colors from charts https://de.wikipedia.org/wiki/Bundestagswahl */
+.union, .cdu, .csu {
+  fill: #000;
+}
+
+.spd {
+  fill: #f00;
+}
+
+.fdp {
+  fill: #ff0;
+}
+
+.linke {
+  fill: #a0a;
+}
+
+.grüne {
+  fill: #008b00;
+}
+
+.piraten {
+  fill: #ff820a;
+}
+
+.npd, .rep {
+  fill: #8b4726;
+}
+
+.sonstige {
+  fill: #aaa;
+}
+
+/* map */
+.subunit {
+cursor:pointer;
+}
+.subunit-boundary {
+  fill: none;
+  stroke-width:.9px;
+  stroke: #777;
+  stroke-linejoin: round;
+}
+
+.subunit-label {
+  fill: #aaa;
+  fill-opacity: .5;
+  font-size: 1em;
+  text-anchor: middle;
+}
+
+.no-background {
+  fill: transparent;
+}
+
+.bar-x-label {
+font-size: 11px;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 440px;
+  height: 375px;
+  padding: 10px;
+  font: 12px sans-serif;
+  background: #fff;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity:0;
+}
