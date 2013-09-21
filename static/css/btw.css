@@ -52,7 +52,7 @@ cursor:pointer;
 }
 
 .subunit-label {
-  fill: #fff;
+  fill: #aaa;
   fill-opacity: .5;
   font-size: 1em;
   text-anchor: middle;
@@ -64,4 +64,18 @@ cursor:pointer;
 
 .bar-x-label {
 font-size: 11px;
+}
+
+div.tooltip {
+  position: absolute;
+  text-align: center;
+  width: 440px;
+  height: 375px;
+  padding: 10px;
+  font: 12px sans-serif;
+  background: #fff;
+  border: 0px;
+  border-radius: 8px;
+  pointer-events: none;
+  opacity:0;
 }

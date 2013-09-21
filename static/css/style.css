@@ -17,17 +17,3 @@ cite {
 .small {
     font-size:.8em;
 }
-
-div.tooltip {
-  position: absolute;
-  text-align: center;
-  width: 440px;
-  height: 375px;
-  padding: 10px;
-  font: 12px sans-serif;
-  background: #fff;
-  border: 0px;
-  border-radius: 8px;
-  pointer-events: none;
-  opacity:0;
-}

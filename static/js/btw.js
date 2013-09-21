@@ -19,8 +19,9 @@ function init(error, de, btw) {
         map_states_votes[item['Bundesland']] = item;
     });
 
-    var vote_dist = getSortedVoteDist(btw);
+    var vote_dist = getSortedVoteDist(btw, 2);
     renderVoteDist(sel_vote_dist, vote_dist);
+    renderSeatDist();
     renderMap(de);
 }
 
@@ -45,7 +46,7 @@ function toggleRegion(d, i){
     var btw = btw_results.filter(function(item, index){
         return inactive_regions.hasOwnProperty(item['Bundesland']) ? false : true;
     });
-    if (vote_dist = getSortedVoteDist(btw))
+    if (vote_dist = getSortedVoteDist(btw, 2))
         renderVoteDist(sel_vote_dist, vote_dist);
     else
         d3.selectAll(sel_vote_dist + ' svg').remove();
@@ -80,10 +81,12 @@ function getWinningPartyByState(state_name, vote_num) {
 }
 
 
-function getSortedVoteDist(btw) {
+function getSortedVoteDist(btw, vote_num) {
+    if (!vote_num) vote_num = 2;
+
     var vote_dist = {};
     btw.map(function(state){
-        party_votes = getSortedPartyVotesByState(state, 2);
+        party_votes = getSortedPartyVotesByState(state, vote_num);
         party_votes.map(function(vote){
             if (!vote_dist.hasOwnProperty(vote.key)) {
                 vote_dist[vote.key] = 0;
@@ -95,6 +98,22 @@ function getSortedVoteDist(btw) {
 
     var entries = d3.entries(vote_dist)
     return entries.sort(function (a, b){ return b.value - a.value });
+}
+
+
+function renderSeatDist() {
+
+    vote_dist = getSortedVoteDist(btw_results, 2);
+
+    party_map = {};
+    vote_dist.map(function(i){
+        //if (i.key !== 'Gültige' && i.key !== 'Sonstige') {
+        if (i.key !== 'Gültige') {
+            party_map[i.key] = i.value;
+        }
+    });
+    var mandates = Bundestagswahl.saint_lague_iterative(party_map, 598, {})
+    console.log(mandates);
 }
 
 
