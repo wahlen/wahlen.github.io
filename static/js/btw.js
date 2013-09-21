@@ -21,7 +21,7 @@ function init(error, de, btw) {
 
     var vote_dist = getSortedVoteDist(btw, 2);
     renderVoteDist(sel_vote_dist, vote_dist);
-    renderSeatDist();
+    //renderSeatDist();
     renderMap(de);
 }
 
@@ -108,7 +108,9 @@ function renderSeatDist() {
     party_map = {};
     vote_dist.map(function(i){
         //if (i.key !== 'Gültige' && i.key !== 'Sonstige') {
-        if (i.key !== 'Gültige') {
+        // for 2009 igonre parties below 5%
+        var ex = ['Gültige', 'PIRATEN', 'NPD'];
+        if (false === ex.indexOf(i.key)) {
             party_map[i.key] = i.value;
         }
     });

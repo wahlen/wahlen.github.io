@@ -1,2 +1,0 @@
-0000000000000000000000000000000000000000 ff4c36702976d834747a713c48cc445111e3f28c Ramiro Gómez <web@ramiro.org> 1379763995 +0200	clone: from git@github.com:wahlen/wahlen.github.io.git
-ff4c36702976d834747a713c48cc445111e3f28c e8678fd292091cc7a32bfbd89335738eaa4dcbb8 Ramiro Gómez <web@ramiro.org> 1379775610 +0200	commit: add btw13.js and not yetworking renderSeatDist function
