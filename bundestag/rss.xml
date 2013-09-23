@@ -3,9 +3,17 @@
 <channel><title>Bundestag</title>
     <link>http://wahlen.github.io/bundestag/rss.xml</link>
     <description>bundestag</description>
-    <lastBuildDate>Mon, 23 Sep 2013 00:11:49 </lastBuildDate>
+    <lastBuildDate>Mon, 23 Sep 2013 12:54:30 </lastBuildDate>
     <generator>Logya</generator>
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
+    
+    <item>
+        <title>Wahlbaukasten Bundestagswahlen 2013 vorläufiges Ergebnis</title>
+        <link>http://wahlen.github.io/bundestag/2013/</link>
+        <description></description>
+        <guid>http://wahlen.github.io/bundestag/2013/</guid>
+        <pubDate>Mon, 23 Sep 2013 12:43:47 </pubDate>
+    </item>
     
     <item>
         <title>Wahlbaukasten Bundestagswahlen 2009</title>
