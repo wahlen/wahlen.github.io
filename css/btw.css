@@ -28,12 +28,12 @@ text {
   fill: #008b00;
 }
 
-.piraten {
-  fill: #ff820a;
-}
-
 .afd {
   fill: #00adef;
+}
+
+.piraten {
+  fill: #ff820a;
 }
 
 .npd, .rep {
@@ -95,4 +95,12 @@ margin: 5px 0 0;
 
 .tooltip p {
 margin-top:-12px;
+}
+
+.navbar-form label {
+color:#999;
+}
+
+.navbar-form .form-group {
+margin-top:.4em;
 }
