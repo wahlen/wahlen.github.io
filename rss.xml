@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
 <channel><title>RSS Feed</title>
-    <link>http://wahlen.github.io/rss.xml</link>
+    <link>http://wahlen.github.io</link>
     <description></description>
-    <lastBuildDate>Fri, 27 Sep 2013 01:31:00 </lastBuildDate>
+    <lastBuildDate>Wed, 16 Oct 2013 19:24:42 </lastBuildDate>
     <generator>Logya</generator>
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     
