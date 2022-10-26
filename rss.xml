@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0">
 <channel><title>RSS Feed</title>
-    <link>http://wahlen.github.io</link>
-    <description></description>
-    <lastBuildDate>Wed, 16 Oct 2013 19:24:42 </lastBuildDate>
+    <link>https://wahlen.github.io</link>
+    <description>RSS Feed</description>
+    <lastBuildDate>Wed, 26 Oct 2022 23:15:01 </lastBuildDate>
     <generator>Logya</generator>
     <docs>http://blogs.law.harvard.edu/tech/rss</docs>
     
     <item>
-        <title>Wahlbaukasten Bundestagswahlen 2013 vorläufiges Ergebnis</title>
-        <link>http://wahlen.github.io/bundestag/2013/</link>
-        <description></description>
-        <guid>http://wahlen.github.io/bundestag/2013/</guid>
+        <title><![CDATA[Wahlbaukasten Bundestagswahlen 2013 vorläufiges Ergebnis]]></title>
+        <link><![CDATA[https://wahlen.github.io/bundestag/2013/]]></link>
+        <description><![CDATA[]]></description>
+        <guid><![CDATA[https://wahlen.github.io/bundestag/2013/]]></guid>
         <pubDate>Mon, 23 Sep 2013 12:43:47 </pubDate>
     </item>
     
     <item>
-        <title>Wahlbaukasten für die Bundestagswahlen</title>
-        <link>http://wahlen.github.io/</link>
-        <description></description>
-        <guid>http://wahlen.github.io/</guid>
+        <title><![CDATA[Wahlbaukasten für die Bundestagswahlen]]></title>
+        <link><![CDATA[https://wahlen.github.io/]]></link>
+        <description><![CDATA[]]></description>
+        <guid><![CDATA[https://wahlen.github.io/]]></guid>
         <pubDate>Sat, 21 Sep 2013 18:27:22 </pubDate>
     </item>
     
     <item>
-        <title>Wahlbaukasten Bundestagswahlen 2009</title>
-        <link>http://wahlen.github.io/bundestag/2009/</link>
-        <description></description>
-        <guid>http://wahlen.github.io/bundestag/2009/</guid>
+        <title><![CDATA[Wahlbaukasten Bundestagswahlen 2009]]></title>
+        <link><![CDATA[https://wahlen.github.io/bundestag/2009/]]></link>
+        <description><![CDATA[]]></description>
+        <guid><![CDATA[https://wahlen.github.io/bundestag/2009/]]></guid>
         <pubDate>Wed, 18 Sep 2013 15:41:47 </pubDate>
     </item>
     
